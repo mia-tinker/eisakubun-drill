@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>瞬間英作文ドリル</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="英作文">
+<meta name="theme-color" content="#2457d6">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f4f7;--surface:#fff;--ink:#16202e;--sub:#5b6676;--line:#d5dbe4;--accent:#2457d6;--accent-ink:#fff;--card:#1b2f5e;--card-ink:#fff;--ok:#1a7f48;--warn:#9a6a00;--ng:#c0352b;
+ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0e141f;--surface:#18202e;--ink:#e8edf5;--sub:#9aa6b8;--line:#2d3849;--accent:#6b93ff;--accent-ink:#0e141f;--card:#233a73;--card-ink:#fff;--ok:#5fd193;--warn:#e6b84d;--ng:#ff8a80}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0e141f;--surface:#18202e;--ink:#e8edf5;--sub:#9aa6b8;--line:#2d3849;--accent:#6b93ff;--accent-ink:#0e141f;--card:#233a73;--card-ink:#fff;--ok:#5fd193;--warn:#e6b84d;--ng:#ff8a80}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;line-height:1.6}
+main{max-width:640px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:1.4rem;margin:4px 0 2px;font-weight:900}
+.sub{color:var(--sub);font-size:.9rem;margin:4px 0}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:16px}
+label.t{font-weight:700;display:block;margin-bottom:6px}
+textarea{width:100%;font-size:18px;line-height:1.5;padding:12px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;resize:vertical}
+#src{font-size:15px}
+.btn{font:inherit;font-weight:700;min-height:48px;padding:.6em 1.1em;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.on{border-color:var(--ng);color:var(--ng)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 0}
+.row .btn{flex:1 1 120px}
+.row.row3 .btn{flex:1 1 0;min-width:0;padding:.6em .3em;font-size:.88rem}
+.opts{display:flex;gap:16px;flex-wrap:wrap;margin:12px 0;font-size:.95rem}
+.opts label{display:flex;gap:6px;align-items:center}
+.link{font:inherit;background:none;border:0;color:var(--accent);text-decoration:underline;cursor:pointer;padding:8px 0}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.top{display:flex;justify-content:space-between;align-items:center;font-weight:700}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:4px 0 14px}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.prompt{background:var(--card);color:var(--card-ink);border-radius:16px;padding:20px 18px 24px;margin-bottom:14px}
+.prompt .no{margin:0 0 6px;font-size:.85rem;opacity:.75}
+.jp{margin:0;font-size:clamp(1.45rem,6vw,2.1rem);font-weight:900;line-height:1.5}
+.res{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--line);border-radius:12px;padding:14px 16px}
+.res.ok{border-left-color:var(--ok)}.res.warn{border-left-color:var(--warn)}.res.ng{border-left-color:var(--ng)}
+.verdict{margin:0 0 8px;font-size:1.3rem;font-weight:900}
+.ok .verdict{color:var(--ok)}.warn .verdict{color:var(--warn)}.ng .verdict{color:var(--ng)}
+.lbl{margin:10px 0 0;font-size:.85rem;color:var(--sub)}
+.en{margin:2px 0;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:1.05rem;overflow-wrap:anywhere}
+.en.big{font-size:1.25rem;font-weight:700}
+.score{font-size:2.4rem;font-weight:900;margin:8px 0}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+<h1>瞬間英作文ドリル</h1>
+<p class="sub">日本語を見て、すぐに英語で答える。声でもキーボードでも。</p>
+
+<section id="setup" class="panel">
+ <label class="t" for="src">例文を貼り付け（番号付きの英文と日本語訳）</label>
+ <textarea id="src" rows="8" placeholder="1. I have a pen. 私はペンを持っています。&#10;2. How are you? 調子はどうですか。"></textarea>
+ <p class="sub">英文と訳は同じ行でも、改行して次の行でも読み込めます。</p>
+ <div class="row">
+  <label class="btn" for="file" tabindex="0">ファイルを選ぶ</label>
+  <input id="file" type="file" accept=".txt,.csv,.tsv,.md,text/plain" hidden>
+  <button id="sample" class="btn" type="button">サンプルを入れる</button>
+ </div>
+ <div class="opts">
+  <label><input type="checkbox" id="shuffle"> ランダム順</label>
+  <label><input type="checkbox" id="auto" checked> 判定後に正解を読み上げ</label>
+ </div>
+ <p id="msg" class="sub" role="status"></p>
+ <button id="start" class="btn primary" type="button" style="width:100%">読み込んで始める</button>
+</section>
+
+<section id="drill" hidden>
+ <div class="top" style="margin-top:16px"><span id="prog"></span><button id="quit" class="link" type="button">例文を入れ直す</button></div>
+ <div class="bar"><i id="barfill"></i></div>
+ <div class="prompt"><p id="no" class="no"></p><p id="jp" class="jp"></p></div>
+ <textarea id="ans" rows="2" autocapitalize="off" autocorrect="off" spellcheck="false" lang="en" placeholder="英語で入力（キーボードのマイクでも可）"></textarea>
+ <p id="hint" class="sub" role="status"></p>
+ <div class="row row3">
+  <button id="mic" class="btn" type="button">音声で答える</button>
+  <button id="say" class="btn" type="button">正解を読み上げ</button>
+  <button id="judge" class="btn primary" type="button">判定する</button>
+ </div>
+ <div id="res" class="res" hidden>
+  <p id="verdict" class="verdict"></p>
+  <p class="lbl">あなたの答え</p><p id="mine" class="en"></p>
+  <p class="lbl">正解</p><p id="correct" class="en big"></p>
+  <p id="diff" class="sub"></p>
+  <p id="time" class="sub"></p>
+  <div class="row">
+   <button id="force" class="btn" type="button" hidden>正解にする</button>
+   <button id="next" class="btn primary" type="button">次へ</button>
+  </div>
+ </div>
+</section>
+
+<section id="done" class="panel" hidden>
+ <p class="lbl" style="margin:0">結果</p>
+ <p id="score" class="score"></p>
+ <p id="scoresub" class="sub"></p>
+ <div class="row">
+  <button id="retry" class="btn primary" type="button">間違えた問題だけやり直す</button>
+  <button id="again" class="btn" type="button">最初からやり直す</button>
+ </div>
+</section>
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+const JP=/[\u3040-\u30ff\u3400-\u9fff\uff66-\uff9f]/;
+const SAMPLE="1. I’m looking for a quiet place to study.\n静かに勉強できる場所を探しています。\n2. Could you tell me how to get to the station?\n駅への行き方を教えていただけますか。\n3. I haven’t finished my homework yet.\nまだ宿題が終わっていません。\n4. She said she would call me back later.\n彼女は後で折り返し電話すると言いました。\n5. It took me an hour to get here.\nここに来るのに1時間かかりました。";
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+
+let items=[],order=[],pos=0,results=[],t0=0,judged=false;
+
+function parse(t){
+ const lines=t.split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+ const numRe=/^[（(]?(\d{1,4})(?:[)）.．、:：]|\s)\s*/;
+ const numbered=lines.some(l=>numRe.test(l));
+ const raw=[];let cur=null;
+ for(const l of lines){
+  if(numbered){
+   const m=numRe.exec(l);
+   if(m){cur={n:m[1],t:l.slice(m[0].length)};raw.push(cur)}
+   else if(cur){cur.t+=' '+l}
+  }else{
+   if(cur&&!JP.test(cur.t)){cur.t+=' '+l}
+   else{cur={n:String(raw.length+1),t:l};raw.push(cur)}
+  }
+ }
+ const out=[];
+ for(const r of raw){
+  const t=r.t.replace(/\s+/g,' ').trim();
+  const i=t.search(JP);if(i<0)continue;
+  let en,jp;
+  if(i>0){en=t.slice(0,i);jp=t.slice(i)}
+  else{const m=/[\x20-\x7E\u2018\u2019\u201C\u201D]+$/.exec(t);if(!m)continue;en=m[0];jp=t.slice(0,m.index)}
+  en=en.replace(/^["“\s]+|[\s"”,，、|｜\/／:：→\-–—]+$/g,'').trim();
+  jp=jp.replace(/^[\s,，、|｜\/／:：→"“]+|["”\s]+$/g,'').trim();
+  if(en&&jp)out.push({n:r.n,en,jp});
+ }
+ return out;
+}
+
+function norm(s){
+ s=s.toLowerCase().replace(/[’‘`´]/g,"'");
+ s=s.replace(/\bcan't\b/g,'can not').replace(/\bcannot\b/g,'can not').replace(/\bwon't\b/g,'will not').replace(/n't\b/g,' not')
+  .replace(/\blet's\b/g,'let us').replace(/'m\b/g,' am').replace(/'re\b/g,' are').replace(/'ve\b/g,' have').replace(/'ll\b/g,' will')
+  .replace(/\b(it|he|she|that|there|what|here|who|where)'s\b/g,'$1 is');
+ return s.replace(/'/g,'').replace(/[^a-z0-9\s]/g,' ').split(/\s+/).filter(Boolean);
+}
+
+function diff(a,b){
+ const n=a.length,m=b.length,d=Array.from({length:n+1},()=>new Array(m+1).fill(0));
+ for(let i=n-1;i>=0;i--)for(let j=m-1;j>=0;j--)d[i][j]=a[i]===b[j]?d[i+1][j+1]+1:Math.max(d[i+1][j],d[i][j+1]);
+ let i=0,j=0;const miss=[],extra=[];
+ while(i<n&&j<m){if(a[i]===b[j]){i++;j++}else if(d[i+1][j]>=d[i][j+1]){miss.push(a[i++])}else{extra.push(b[j++])}}
+ while(i<n)miss.push(a[i++]);while(j<m)extra.push(b[j++]);
+ return{miss,extra,lcs:d[0][0]};
+}
+
+function shuffled(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+function show(id){['setup','drill','done'].forEach(s=>$(s).hidden=s!==id)}
+
+function round(indices){
+ order=$('shuffle').checked?shuffled(indices):indices.slice();
+ pos=0;results=[];show('drill');question();
+}
+
+function question(){
+ const it=items[order[pos]];
+ judged=false;
+ $('prog').textContent=(pos+1)+' / '+order.length;
+ $('barfill').style.width=(pos/order.length*100)+'%';
+ $('no').textContent='No.'+it.n;
+ $('jp').textContent=it.jp;
+ const a=$('ans');a.value='';a.readOnly=false;
+ $('hint').textContent='';
+ $('res').hidden=true;
+ $('judge').disabled=false;$('mic').disabled=!SR;
+ if(window.speechSynthesis)speechSynthesis.cancel();
+ a.focus();
+ t0=performance.now();
+}
+
+function judge(){
+ if(judged)return;
+ const text=$('ans').value.trim();
+ if(!text){$('ans').focus();return}
+ if(listening){rec.onend=null;rec.stop();listening=false;micUI()}
+ judged=true;
+ const secs=(performance.now()-t0)/1000;
+ const it=items[order[pos]];
+ const ref=norm(it.en),usr=norm(text);
+ const r=diff(ref,usr);
+ const ok=!r.miss.length&&!r.extra.length;
+ const sim=2*r.lcs/((ref.length+usr.length)||1);
+ results[pos]=ok;
+ const cls=ok?'ok':sim>=0.8?'warn':'ng';
+ $('res').className='res '+cls;
+ $('verdict').textContent=ok?'正解':sim>=0.8?'惜しい':'不正解';
+ $('mine').textContent=text;
+ $('correct').textContent=it.en;
+ const parts=[];
+ if(r.miss.length)parts.push('足りない語: '+r.miss.join(', '));
+ if(r.extra.length)parts.push('余分な語: '+r.extra.join(', '));
+ $('diff').textContent=parts.join(' ／ ');
+ $('time').textContent='答えるまで '+secs.toFixed(1)+' 秒';
+ $('force').hidden=ok;
+ $('next').textContent=pos+1>=order.length?'結果を見る':'次へ';
+ $('ans').readOnly=true;$('judge').disabled=true;$('mic').disabled=true;
+ $('res').hidden=false;
+ $('res').scrollIntoView({block:'nearest'});
+ if($('auto').checked)speak(it.en);
+}
+
+function next(){
+ if(!judged)return;
+ pos++;
+ if(pos>=order.length){finish();return}
+ question();
+}
+
+function finish(){
+ const good=results.filter(Boolean).length;
+ $('score').textContent=good+' / '+order.length;
+ const bad=order.length-good;
+ $('scoresub').textContent=bad?('間違えた問題が '+bad+' 問あります。'):'全問正解です。';
+ $('retry').hidden=!bad;
+ show('done');
+}
+
+function speak(t){
+ if(!window.speechSynthesis)return;
+ speechSynthesis.cancel();
+ const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=.95;speechSynthesis.speak(u);
+}
+
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+let rec=null,listening=false;
+function micUI(){$('mic').classList.toggle('on',listening);$('mic').textContent=listening?'聞き取り中（停止）':'音声で答える'}
+function toggleMic(){
+ if(!SR||judged)return;
+ if(listening){rec.stop();return}
+ rec=new SR();rec.lang='en-US';rec.interimResults=true;rec.continuous=false;
+ let heard='';
+ rec.onresult=e=>{let t='';for(const r of e.results)t+=r[0].transcript;heard=t.trim();$('ans').value=heard};
+ rec.onerror=e=>{const blocked={'not-allowed':1,'service-not-allowed':1,'audio-capture':1};$('hint').textContent=blocked[e.error]?'この画面ではマイクを使えません。キーボードのマイクボタン（音声入力）を使うか、外部ブラウザでページを開いてください。':e.error==='no-speech'?'声が聞こえませんでした。もう一度お試しください。':'音声を認識できませんでした。もう一度お試しください。'};
+ rec.onend=()=>{listening=false;micUI();if(heard&&!judged)judge()};
+ try{rec.start();listening=true;$('hint').textContent='';micUI()}catch(e){}
+}
+
+$('sample').onclick=()=>{$('src').value=SAMPLE};
+$('file').onchange=async e=>{const f=e.target.files[0];if(f){$('src').value=await f.text()}};
+$('start').onclick=()=>{
+ const list=parse($('src').value);
+ if(!list.length){$('msg').textContent='例文を読み取れませんでした。「1. English 日本語」の形で貼り付けてください。';return}
+ $('msg').textContent='';
+ items=list;store.set('ec_text',$('src').value);
+ round(items.map((_,i)=>i));
+};
+$('quit').onclick=()=>{if(listening){rec.onend=null;rec.stop();listening=false;micUI()}show('setup')};
+$('judge').onclick=judge;
+$('mic').onclick=toggleMic;
+$('next').onclick=next;
+$('say').onclick=()=>speak(items[order[pos]].en);
+$('force').onclick=()=>{results[pos]=true;$('res').className='res ok';$('verdict').textContent='正解にしました';$('force').hidden=true};
+$('retry').onclick=()=>round(order.filter((_,k)=>!results[k]));
+$('again').onclick=()=>round(items.map((_,i)=>i));
+$('ans').addEventListener('keydown',e=>{
+ if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();judged?next():judge()}
+});
+document.addEventListener('keydown',e=>{
+ if(e.key==='Enter'&&judged&&!$('drill').hidden&&e.target.tagName!=='BUTTON'&&e.target.id!=='ans'){e.preventDefault();next()}
+});
+if(!SR){$('mic').disabled=true;$('mic').textContent='音声は未対応のブラウザです'}
+const saved=store.get('ec_text');if(saved)$('src').value=saved;
+</script>
+</body>
+</html>
